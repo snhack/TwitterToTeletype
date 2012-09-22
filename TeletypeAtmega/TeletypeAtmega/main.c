@@ -8,11 +8,13 @@
 #include <avr/io.h>
 #include <stdio.h>
 #include <util/setbaud.h>
+
 // Some macros that make the code more readable
 #define output_low(port,pin) port &= ~(1<<pin)
 #define output_high(port,pin) port |= (1<<pin)
 //#define set_input(portdir,pin) portdir &= ~(1<<pin)
 #define set_output(portdir,pin) portdir |= (1<<pin)
+
 void tunedDelay(uint16_t delay) {
 	uint8_t tmp=0;
 	asm volatile("sbiw    %0, 0x01 \n\t"
@@ -39,12 +41,15 @@ inline void uart_init(void) {
 }
 static const char *POWER_ON = "<<";
 static const char *POWER_OFF = ">>";
+
 #ifdef DEBUG
 static const char *START_MESSAGE = "Ready.";
 #endif
+
 static const char NEWLINE = '\n';
 static const char CR = '\r';
 static const char NULLCHAR = '\0';
+
 #ifdef DEBUG
 int uart_puts(const char *str) {
 	while(*str) {
@@ -98,12 +103,7 @@ size_t write(uint8_t b)
 	}
 	// two stop bits
 	output_low(PORTD, PD3);
-	tunedDelay(_tx_delay);
-	output_low(PORTD, PD3);
-	tunedDelay(_tx_delay);
-	// Additional delay for teletype to catch up?
-	tunedDelay(_tx_delay);
-	tunedDelay(_tx_delay);
+	tunedDelay(_tx_delay*4);// *4 gives 2 stop bits plus 2 extra bit periods for the TTY to 'recover'
 	return 1;
 }
 /************************************************************************/
@@ -152,26 +152,31 @@ void interpretCommand() {
 /************************************************************************/
 int main(void)
 {
+	//
+	// Set up port pins
+	//
 	set_output(DDRB, PB5);
-	output_low(PORTB, PB5);
-	
-	for(uint8_t i = 0;i <5;i++) {
-		_delay_ms(300);
-		output_high(PORTB, PB5);
-		_delay_ms(300);
-		output_low(PORTB, PB5);
-	}
-	uart_init();
 	set_output(DDRD, PD2);
 	set_output(DDRD, PD3);// TTY send pin
+	output_low(PORTB, PB5);// LED pin - flashes to indicate reset
 	output_low(PORTD, PD2);
-	//output_high(PORTD, PD3);
 	output_low(PORTD, PD3);
+//
+// Toggle PB5 to indicate a reset has taken place
+//
+	for(uint8_t i = 0;i<5;i++){
+		output_high(PINB, PB5);// Writing to the input port toggles the output pin
+		_delay_ms(300);
+	}
+
+	uart_init();
 	char *bufferPtr = buffer;
 	uint8_t count = 0;
+	
 	#ifdef DEBUG
 	uart_puts(START_MESSAGE);
 	#endif
+	
 	while(1) {
 		loop_until_bit_is_set(UCSRA, RXC); /* Wait until data exists. */
 		char input = UDR;//getchar();
