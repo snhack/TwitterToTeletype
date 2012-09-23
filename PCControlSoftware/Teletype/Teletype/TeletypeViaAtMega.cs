@@ -11,16 +11,15 @@ namespace Teletype
 {
 	public class TeletypeViaAtmega : ITeletype
 	{
-		SerialPort port;
+		ITeletypeConnectPort port;
 
 		public void Connect()
 		{
 			Logger.Instance.Write("TeletypeViaAtmega connecting");
-			
-			port = new SerialPort(Properties.Settings.Default.ComPort, 9600, Parity.None, 8, StopBits.One);
 
+			port = new DebugConnectPort();
+			port.Init(Settings.Default.ComPort, 9600, Parity.None, 8, StopBits.One, Handshake.None);
 			port.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
-			port.Handshake = Handshake.None;
 			port.Open();
 		}
 

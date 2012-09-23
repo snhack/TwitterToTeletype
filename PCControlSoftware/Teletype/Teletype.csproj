@@ -56,7 +56,10 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Teletype\DebugConnectPort.cs" />
+    <Compile Include="Teletype\ITeletypeConnectPort.cs" />
     <Compile Include="Teletype\ITeletype.cs" />
+    <Compile Include="Teletype\SerialTeletypeConnectPort.cs" />
     <Compile Include="Teletype\Teletype.cs" />
     <Compile Include="TeletypeForm.cs">
       <SubType>Form</SubType>
@@ -69,6 +72,7 @@
     <Compile Include="Twitter\NewTweetEventArgs.cs" />
     <Compile Include="Twitter\Tweet.cs" />
     <Compile Include="Twitter\Tweeter.cs" />
+    <Compile Include="Utility\ByteUtils.cs" />
     <Compile Include="Utility\Logger.cs" />
   </ItemGroup>
   <ItemGroup>

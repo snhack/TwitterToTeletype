@@ -11,14 +11,14 @@ namespace Teletype
 {
 	public class Teletype : ITeletype
 	{
-		SerialPort port;
+		ITeletypeConnectPort port;
 
 		public void Connect()
 		{
 			Logger.Instance.Write("Teletype connecting");
 
-			port = new SerialPort(Settings.Default.ComPort, 110, Parity.Even, 8, StopBits.Two);
-			port.Handshake = Handshake.None;
+			port = new SerialTeletypeConnectPort();
+			port.Init(Settings.Default.ComPort, 110, Parity.Even, 8, StopBits.Two, Handshake.None);
 			port.Open();
 		}
 
