@@ -158,7 +158,7 @@ int main(void)
 	set_output(DDRD, PD5);
 	set_output(DDRD, PD2);
 	set_output(DDRD, PD3);// TTY send pin
-	output_low(PORTB, PD5);// LED pin - flashes to indicate reset
+	output_low(PORTD, PD5);// LED pin - flashes to indicate reset
 	output_low(PORTD, PD2);
 	output_low(PORTD, PD3);
 //
