@@ -155,17 +155,17 @@ int main(void)
 	//
 	// Set up port pins
 	//
-	set_output(DDRB, PB5);
+	set_output(DDRD, PD5);
 	set_output(DDRD, PD2);
 	set_output(DDRD, PD3);// TTY send pin
-	output_low(PORTB, PB5);// LED pin - flashes to indicate reset
+	output_low(PORTB, PD5);// LED pin - flashes to indicate reset
 	output_low(PORTD, PD2);
 	output_low(PORTD, PD3);
 //
-// Toggle PB5 to indicate a reset has taken place
+// Toggle PD5 to indicate a reset has taken place
 //
 	for(uint8_t i = 0;i<5;i++){
-		output_high(PINB, PB5);// Writing to the input port toggles the output pin
+		output_high(PIND, PD5);// Writing to the input port toggles the output pin
 		_delay_ms(300);
 	}
 
