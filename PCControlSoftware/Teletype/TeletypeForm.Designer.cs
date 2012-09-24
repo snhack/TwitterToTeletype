@@ -47,15 +47,10 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.btnLF = new System.Windows.Forms.Button();
 			this.btnCR = new System.Windows.Forms.Button();
-			this.btnTweet = new System.Windows.Forms.Button();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
-			this.grpTwitter = new System.Windows.Forms.GroupBox();
-			this.label3 = new System.Windows.Forms.Label();
-			this.txtTwitterQuery = new System.Windows.Forms.TextBox();
 			this.groupBox1.SuspendLayout();
 			this.grpManualTransmission.SuspendLayout();
 			this.groupBox3.SuspendLayout();
-			this.grpTwitter.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// txtMessage
@@ -65,7 +60,7 @@
 			this.txtMessage.Location = new System.Drawing.Point(145, 50);
 			this.txtMessage.Name = "txtMessage";
 			this.txtMessage.Size = new System.Drawing.Size(241, 20);
-			this.txtMessage.TabIndex = 1;
+			this.txtMessage.TabIndex = 4;
 			this.txtMessage.Text = "abcdefghijklmnopqrstuvwxyz";
 			// 
 			// label1
@@ -74,7 +69,7 @@
 			this.label1.Location = new System.Drawing.Point(6, 53);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(133, 13);
-			this.label1.TabIndex = 0;
+			this.label1.TabIndex = 3;
 			this.label1.Text = "Text Message (Translated)";
 			// 
 			// btnSendMessage
@@ -83,7 +78,7 @@
 			this.btnSendMessage.Location = new System.Drawing.Point(392, 48);
 			this.btnSendMessage.Name = "btnSendMessage";
 			this.btnSendMessage.Size = new System.Drawing.Size(75, 46);
-			this.btnSendMessage.TabIndex = 2;
+			this.btnSendMessage.TabIndex = 5;
 			this.btnSendMessage.Text = "Send";
 			this.btnSendMessage.UseVisualStyleBackColor = true;
 			this.btnSendMessage.Click += new System.EventHandler(this.btnSendMessage_Click);
@@ -94,7 +89,7 @@
 			this.label2.Location = new System.Drawing.Point(75, 105);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(64, 13);
-			this.label2.TabIndex = 3;
+			this.label2.TabIndex = 6;
 			this.label2.Text = "Byte (0-255)";
 			// 
 			// txtByte
@@ -104,7 +99,7 @@
 			this.txtByte.Location = new System.Drawing.Point(145, 102);
 			this.txtByte.Name = "txtByte";
 			this.txtByte.Size = new System.Drawing.Size(241, 20);
-			this.txtByte.TabIndex = 4;
+			this.txtByte.TabIndex = 7;
 			// 
 			// btnSendByte
 			// 
@@ -112,7 +107,7 @@
 			this.btnSendByte.Location = new System.Drawing.Point(392, 100);
 			this.btnSendByte.Name = "btnSendByte";
 			this.btnSendByte.Size = new System.Drawing.Size(75, 23);
-			this.btnSendByte.TabIndex = 5;
+			this.btnSendByte.TabIndex = 8;
 			this.btnSendByte.Text = "Send";
 			this.btnSendByte.UseVisualStyleBackColor = true;
 			this.btnSendByte.Click += new System.EventHandler(this.btnSendByte_Click);
@@ -138,7 +133,7 @@
 			this.txtDebug.Multiline = true;
 			this.txtDebug.Name = "txtDebug";
 			this.txtDebug.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtDebug.Size = new System.Drawing.Size(461, 135);
+			this.txtDebug.Size = new System.Drawing.Size(461, 193);
 			this.txtDebug.TabIndex = 0;
 			// 
 			// groupBox1
@@ -175,7 +170,7 @@
 			this.grpManualTransmission.Location = new System.Drawing.Point(12, 66);
 			this.grpManualTransmission.Name = "grpManualTransmission";
 			this.grpManualTransmission.Size = new System.Drawing.Size(473, 157);
-			this.grpManualTransmission.TabIndex = 1;
+			this.grpManualTransmission.TabIndex = 0;
 			this.grpManualTransmission.TabStop = false;
 			this.grpManualTransmission.Text = "Manual Transmission";
 			// 
@@ -185,7 +180,7 @@
 			this.label5.Location = new System.Drawing.Point(58, 24);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(81, 13);
-			this.label5.TabIndex = 11;
+			this.label5.TabIndex = 0;
 			this.label5.Text = "Teletype Power";
 			// 
 			// btnTeletypeOn
@@ -213,7 +208,7 @@
 			this.btnBs.Location = new System.Drawing.Point(247, 128);
 			this.btnBs.Name = "btnBs";
 			this.btnBs.Size = new System.Drawing.Size(44, 23);
-			this.btnBs.TabIndex = 9;
+			this.btnBs.TabIndex = 12;
 			this.btnBs.Text = "BS";
 			this.btnBs.UseVisualStyleBackColor = true;
 			this.btnBs.Click += new System.EventHandler(this.btnBs_Click);
@@ -223,7 +218,7 @@
 			this.btnBell.Location = new System.Drawing.Point(297, 128);
 			this.btnBell.Name = "btnBell";
 			this.btnBell.Size = new System.Drawing.Size(44, 23);
-			this.btnBell.TabIndex = 10;
+			this.btnBell.TabIndex = 13;
 			this.btnBell.Text = "BELL";
 			this.btnBell.UseVisualStyleBackColor = true;
 			this.btnBell.Click += new System.EventHandler(this.btnBell_Click);
@@ -234,7 +229,7 @@
 			this.label4.Location = new System.Drawing.Point(97, 133);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(42, 13);
-			this.label4.TabIndex = 6;
+			this.label4.TabIndex = 9;
 			this.label4.Text = "Special";
 			// 
 			// btnLF
@@ -242,7 +237,7 @@
 			this.btnLF.Location = new System.Drawing.Point(197, 128);
 			this.btnLF.Name = "btnLF";
 			this.btnLF.Size = new System.Drawing.Size(44, 23);
-			this.btnLF.TabIndex = 8;
+			this.btnLF.TabIndex = 11;
 			this.btnLF.Text = "LF";
 			this.btnLF.UseVisualStyleBackColor = true;
 			this.btnLF.Click += new System.EventHandler(this.btnLF_Click);
@@ -252,21 +247,10 @@
 			this.btnCR.Location = new System.Drawing.Point(147, 128);
 			this.btnCR.Name = "btnCR";
 			this.btnCR.Size = new System.Drawing.Size(44, 23);
-			this.btnCR.TabIndex = 7;
+			this.btnCR.TabIndex = 10;
 			this.btnCR.Text = "CR";
 			this.btnCR.UseVisualStyleBackColor = true;
 			this.btnCR.Click += new System.EventHandler(this.btnCR_Click);
-			// 
-			// btnTweet
-			// 
-			this.btnTweet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnTweet.Location = new System.Drawing.Point(392, 19);
-			this.btnTweet.Name = "btnTweet";
-			this.btnTweet.Size = new System.Drawing.Size(75, 23);
-			this.btnTweet.TabIndex = 2;
-			this.btnTweet.Text = "Start";
-			this.btnTweet.UseVisualStyleBackColor = true;
-			this.btnTweet.Click += new System.EventHandler(this.btnTweet_Click);
 			// 
 			// groupBox3
 			// 
@@ -274,53 +258,18 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox3.Controls.Add(this.txtDebug);
-			this.groupBox3.Location = new System.Drawing.Point(12, 287);
+			this.groupBox3.Location = new System.Drawing.Point(12, 229);
 			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(473, 160);
+			this.groupBox3.Size = new System.Drawing.Size(473, 218);
 			this.groupBox3.TabIndex = 3;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Debug";
-			// 
-			// grpTwitter
-			// 
-			this.grpTwitter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.grpTwitter.Controls.Add(this.label3);
-			this.grpTwitter.Controls.Add(this.txtTwitterQuery);
-			this.grpTwitter.Controls.Add(this.btnTweet);
-			this.grpTwitter.Enabled = false;
-			this.grpTwitter.Location = new System.Drawing.Point(12, 229);
-			this.grpTwitter.Name = "grpTwitter";
-			this.grpTwitter.Size = new System.Drawing.Size(473, 52);
-			this.grpTwitter.TabIndex = 2;
-			this.grpTwitter.TabStop = false;
-			this.grpTwitter.Text = "Twitter";
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(38, 22);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(103, 13);
-			this.label3.TabIndex = 0;
-			this.label3.Text = "Twitter search query";
-			// 
-			// txtTwitterQuery
-			// 
-			this.txtTwitterQuery.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtTwitterQuery.Location = new System.Drawing.Point(147, 19);
-			this.txtTwitterQuery.Name = "txtTwitterQuery";
-			this.txtTwitterQuery.Size = new System.Drawing.Size(239, 20);
-			this.txtTwitterQuery.TabIndex = 1;
-			this.txtTwitterQuery.Text = "hakmoc";
 			// 
 			// TeletypeForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(497, 459);
-			this.Controls.Add(this.grpTwitter);
 			this.Controls.Add(this.groupBox3);
 			this.Controls.Add(this.grpManualTransmission);
 			this.Controls.Add(this.groupBox1);
@@ -332,8 +281,6 @@
 			this.grpManualTransmission.PerformLayout();
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
-			this.grpTwitter.ResumeLayout(false);
-			this.grpTwitter.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -355,11 +302,7 @@
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Button btnLF;
 		private System.Windows.Forms.Button btnCR;
-		private System.Windows.Forms.Button btnTweet;
 		private System.Windows.Forms.Button btnBs;
-		private System.Windows.Forms.GroupBox grpTwitter;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.TextBox txtTwitterQuery;
 		private System.Windows.Forms.Button btnTeletypeOff;
 		private System.Windows.Forms.Button btnTeletypeOn;
 		private System.Windows.Forms.Label label5;

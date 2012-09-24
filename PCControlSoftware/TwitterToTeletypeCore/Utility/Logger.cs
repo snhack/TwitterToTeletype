@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Teletype.Utility
+namespace TTT.Utility
 {
 	public class Logger
 	{

@@ -6,12 +6,16 @@ using System.Linq;
 using System.Web;
 using System.Xml;
 using System.IO.Ports;
-using Teletype.Utility;
-using Teletype.Properties;
+using TTT.Utility;
+using TTT.Properties;
 
-namespace Teletype.Twitter
+namespace TTT.Twitter
 {
-	class Tweeter
+	/// <summary>
+	/// Polls the Twitter api for tweets matching the give searchTerm and fires and event
+	/// when new tweets are found
+	/// </summary>
+	public class Tweeter
 	{
 		const string SEARCH_URL = "http://search.twitter.com/search.atom?q={0}&{1}";
 

@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Teletype.Twitter;
+using TTT.Twitter;
 using System.Threading;
 
-namespace Teletype
+namespace TTT.Teletype
 {
-	class TweetPrinter
+	/// <summary>
+	/// TweetPrinter links a Tweet to a Teletype, dealing with turning the Teletype on / off 
+	/// and formatting the tweet for printing.
+	/// Just in case someone doesn't hear the Teletype start up, we also ring the bell!
+	/// </summary>
+	public class TweetPrinter
 	{
 		const int CONSOLE_WIDTH = 60;
 
@@ -36,6 +41,8 @@ namespace Teletype
 			Thread.Sleep(2000);
 
 			teletype.SwitchOff();
+
+			Thread.Sleep(2000);
 		}
 
 		private void PrintTweetText(string message)

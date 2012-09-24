@@ -7,9 +7,9 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
-using Teletype.Twitter;
-using Teletype.Utility;
-using Teletype.Properties;
+using TTT.Teletype;
+using TTT.Twitter;
+using TTT.Utility;
 
 namespace Teletype
 {
@@ -30,11 +30,10 @@ namespace Teletype
 			{
 				//teletype = new Teletype();
 				teletype = new TeletypeViaAtmega();
-				teletype.Connect();
+				teletype.Connect(new SerialTeletypeConnectPort());
 				printer = new TweetPrinter(teletype);
 
 				grpManualTransmission.Enabled = true;
-				grpTwitter.Enabled = true;
 				btnConnectToTeletype.Enabled = false;
 			}
 			catch (Exception ex)
@@ -156,45 +155,6 @@ namespace Teletype
 			catch (Exception ex)
 			{
 				MessageBox.Show(ex.ToString());
-			}
-		}
-
-		private void btnTweet_Click(object sender, EventArgs e)
-		{
-			try
-			{
-				tweeter = new Tweeter();
-				tweeter.NewTweet += new EventHandler<NewTweetEventArgs>(t_NewTweet);
-				tweeter.StartSearch(txtTwitterQuery.Text);
-
-				txtDebug.Text = "Tweeter started...  Wait.";
-
-				grpTwitter.Enabled = false;
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.ToString());
-			}
-		}
-
-		void t_NewTweet(object sender, NewTweetEventArgs e)
-		{
-			if (InvokeRequired)
-			{
-				Invoke(new MethodInvoker(() => { t_NewTweet(sender, e); }));
-				return;
-			}
-
-			try
-			{
-				txtDebug.Text +=
-					string.Format("{0} Sending tweet to teletype : {1}", Environment.NewLine, e.Tweet.Text);
-
-				printer.PrintTweet(e.Tweet);
-			}
-			catch (Exception ex)
-			{
-				Logger.Instance.Error("Failed to send tweet to teletype", ex);
 			}
 		}
 	}

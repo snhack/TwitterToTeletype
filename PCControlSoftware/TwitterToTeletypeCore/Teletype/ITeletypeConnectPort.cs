@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO.Ports;
+﻿using System.IO.Ports;
 
-namespace Teletype
+namespace TTT.Teletype
 {
 	/// <summary>
 	/// Interface wrapper around a serial port to allow for testing with no Teletype connected
 	/// </summary>
-	interface ITeletypeConnectPort
+	public interface ITeletypeConnectPort
 	{
 		event SerialDataReceivedEventHandler DataReceived;
 

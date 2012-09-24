@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO.Ports;
+﻿using System.IO.Ports;
 
-namespace Teletype
+namespace TTT.Teletype
 {
 	/// <summary>
 	/// Connection to a teletype via a serial port
 	/// </summary>
-	class SerialTeletypeConnectPort : ITeletypeConnectPort
+	public class SerialTeletypeConnectPort : ITeletypeConnectPort
 	{
 		private SerialPort port;
 

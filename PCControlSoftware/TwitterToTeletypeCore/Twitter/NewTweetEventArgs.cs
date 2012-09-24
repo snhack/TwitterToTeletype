@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Teletype.Twitter
+namespace TTT.Twitter
 {
-	class NewTweetEventArgs : EventArgs
+	public class NewTweetEventArgs : EventArgs
 	{
 		public Tweet Tweet { get; private set; }
 

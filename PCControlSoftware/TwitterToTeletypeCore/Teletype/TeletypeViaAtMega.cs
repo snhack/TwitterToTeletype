@@ -4,28 +4,34 @@ using System.Linq;
 using System.Text;
 using System.IO.Ports;
 using System.Threading;
-using Teletype.Utility;
-using Teletype.Properties;
+using TTT.Utility;
+using TTT.Properties;
 
-namespace Teletype
+namespace TTT.Teletype
 {
+	/// <summary>
+	/// Represents a Teletype connected via the hackspaces AtMega interface that allows the Teletype
+	/// to be turned on and off as well as translating messages from 9600 baud to the 110 baud
+	/// required for the teletype.
+	/// The Serial conversion has a limited buffer, so this class deals with that by breaking longer
+	/// messages into short segments and allowing time for the buffer to be forwarded to the Teletype.
+	/// 
+	/// </summary>
 	public class TeletypeViaAtmega : ITeletype
 	{
+		const int SwitchDelay = 2000; // Time to wait after switching power on or off to allow TT to warm up/down
+		const int PrintDelay = 4000;  // Delay time for AtMega to empty it's serial buffer
+
 		ITeletypeConnectPort port;
 
-		public void Connect()
+		public void Connect(ITeletypeConnectPort port)
 		{
 			Logger.Instance.Write("TeletypeViaAtmega connecting");
 
-			port = new DebugConnectPort();
+			this.port = port;
 			port.Init(Settings.Default.ComPort, 9600, Parity.None, 8, StopBits.One, Handshake.None);
 			port.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
 			port.Open();
-		}
-
-		void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
-		{
-			Console.WriteLine(port.ReadExisting());
 		}
 
 		public void Disconnect()
@@ -36,16 +42,6 @@ namespace Teletype
 			port = null;
 		}
 
-		public void SwitchOn()
-		{
-			Print(System.Text.Encoding.UTF8.GetBytes("<<\n"));
-		}
-
-		public void SwitchOff()
-		{
-			Print(System.Text.Encoding.UTF8.GetBytes(">>\n"));
-		}
-
 		public bool Connected
 		{
 			get
@@ -54,13 +50,30 @@ namespace Teletype
 			}
 		}
 
+		public void SwitchOn()
+		{
+			Print(System.Text.Encoding.UTF8.GetBytes("<<\n"));
+			Thread.Sleep(SwitchDelay);
+		}
+
+		public void SwitchOff()
+		{
+			Print(System.Text.Encoding.UTF8.GetBytes(">>\n"));
+			Thread.Sleep(SwitchDelay);
+		}
+
+		void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
+		{
+			Logger.Instance.Write(port.ReadExisting());
+		}
+
 		public byte[] EncodeBytes(string message)
 		{
 			byte[] messageBytes = System.Text.Encoding.UTF8.GetBytes(message);
-
+			
 			for (int i = 0; i < messageBytes.Length; i++)
 				messageBytes[i] |= 1 << 7; // Set bit 7 to 1
-
+			
 			return messageBytes;
 		}
 
@@ -91,13 +104,13 @@ namespace Teletype
 			{
 				port.Write(new byte[] { bytes[i] }, 0, 1);
 
-				/*
-				if (counter++ % 50 == 0)
+				// AtMega buffer is only 50 bytes, we need to send \n to flush buffer to teletype
+				if (++counter % 50 == 0)
 				{
 					SegmentEnd();
-					Thread.Sleep(5000);
-				}*/
-		}
+					Thread.Sleep(PrintDelay);
+				}
+			}
 		}
 
 		private void SegmentEnd()

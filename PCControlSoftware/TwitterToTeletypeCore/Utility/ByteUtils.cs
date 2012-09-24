@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Teletype.Utility
+namespace TTT.Utility
 {
-	static class ByteUtils
+	public static class ByteUtils
 	{
 		/// <summary>
-		/// Print byte out in format "124 : 01101101"
+		/// Print byte out in nice format for debugging
 		/// </summary>
 		public static string DebugText(this byte b)
 		{
