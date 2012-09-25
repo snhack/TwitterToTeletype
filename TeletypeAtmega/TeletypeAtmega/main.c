@@ -51,7 +51,7 @@ static const char CR = '\r';
 static const char NULLCHAR = '\0';
 
 #ifdef DEBUG
-int uart_puts(const char *str) {
+void uart_puts(const char *str) {
 	while(*str) {
 		char c = *str++;
 		if (c == NEWLINE) {
@@ -60,7 +60,6 @@ int uart_puts(const char *str) {
 		loop_until_bit_is_set(UCSRA, UDRE);
 		UDR = c;
 	}
-	return 0;
 }
 #endif
 /************************************************************************/
@@ -83,7 +82,7 @@ inline uint8_t evenParity( uint8_t b )
 /************************************************************************/
 /* Hacked from SoftwareSerial                                           */
 /************************************************************************/
-size_t write(uint8_t b)
+void write(uint8_t b)
 {
 	//
 	// Set bit 7 if there are an odd number of 1's in bits 0 to 6
@@ -104,7 +103,6 @@ size_t write(uint8_t b)
 	// two stop bits
 	output_low(PORTD, PD3);
 	tunedDelay(_tx_delay*4);// *4 gives 2 stop bits plus 2 extra bit periods for the TTY to 'recover'
-	return 1;
 }
 /************************************************************************/
 /* Function to send the current buffer contents to the teletype         */
@@ -172,11 +170,11 @@ int main(void)
 	uart_init();
 	char *bufferPtr = buffer;
 	uint8_t count = 0;
-	
+
 	#ifdef DEBUG
 	uart_puts(START_MESSAGE);
 	#endif
-	
+
 	while(1) {
 		loop_until_bit_is_set(UCSRA, RXC); /* Wait until data exists. */
 		char input = UDR;//getchar();
