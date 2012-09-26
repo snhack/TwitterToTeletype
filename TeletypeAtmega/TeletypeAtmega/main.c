@@ -178,7 +178,6 @@ int main(void)
 	while(1) {
 		loop_until_bit_is_set(UCSRA, RXC); /* Wait until data exists. */
 		char input = UDR;//getchar();
-		*bufferPtr++ = input;
 		count++;
 		if(input == NEWLINE || count == 50) {
 			//
@@ -189,6 +188,10 @@ int main(void)
 			bufferPtr = buffer;   // reset the buffer
 			count = 0;            // reset the counter
 		}
+		else
+		{
+			*bufferPtr++ = input;
+		}			
 	}
 	return 0;
 }
