@@ -19,8 +19,9 @@ namespace TTT.Teletype
 	/// </summary>
 	public class TeletypeViaAtmega : ITeletype
 	{
-		const int SwitchDelay = 2000; // Time to wait after switching power on or off to allow TT to warm up/down
-		const int PrintDelay = 4000;  // Delay time for AtMega to empty it's serial buffer
+		const int SwitchDelay = 1000; // Time to wait after switching power on or off to allow TT to warm up/down
+		const int SingleCharPrintDelay = 105; // Delay for a single character to print (10cps Teletype) plus a bit for good luck
+		const int CommandDelay = 500; // Time to wait to allow the Teletype to process a command
 
 		ITeletypeConnectPort port;
 
@@ -52,12 +53,14 @@ namespace TTT.Teletype
 
 		public void SwitchOn()
 		{
+			SegmentEnd();
 			Print(System.Text.Encoding.UTF8.GetBytes("<<\n"));
 			Thread.Sleep(SwitchDelay);
 		}
 
 		public void SwitchOff()
 		{
+			SegmentEnd();
 			Print(System.Text.Encoding.UTF8.GetBytes(">>\n"));
 			Thread.Sleep(SwitchDelay);
 		}
@@ -84,13 +87,11 @@ namespace TTT.Teletype
 			var bytes = EncodeBytes(message);
 
 			Print(bytes);
-			SegmentEnd();
 		}
 
 		public void Print(byte b)
 		{
 			Print(new byte[] { b });
-			SegmentEnd();
 		}
 
 		private void Print(byte[] bytes)
@@ -105,17 +106,22 @@ namespace TTT.Teletype
 				port.Write(new byte[] { bytes[i] }, 0, 1);
 
 				// AtMega buffer is only 50 bytes, we need to send \n to flush buffer to teletype
-				if (++counter % 50 == 0)
+				if (++counter == 50)
 				{
 					SegmentEnd();
-					Thread.Sleep(PrintDelay);
+					Thread.Sleep(counter * SingleCharPrintDelay);
+					counter = 0;
 				}
 			}
+			SegmentEnd();
+			Thread.Sleep(counter * SingleCharPrintDelay);
+			Thread.Sleep(CommandDelay);
 		}
 
 		private void SegmentEnd()
 		{
-			Print(System.Text.Encoding.UTF8.GetBytes("\n"));
+			port.Write(System.Text.Encoding.UTF8.GetBytes("\n"), 0, 1);
+			Thread.Sleep(CommandDelay);
 		}
 
 		#endregion
@@ -130,21 +136,26 @@ namespace TTT.Teletype
 
 		public void Bell()
 		{
+			SegmentEnd();
 			Print(135);
 		}
 
 		public void Backspace()
 		{
+			SegmentEnd();
 			Print(136);
 		}
 
 		public void CR()
 		{
+			SegmentEnd();
 			Print(141);
+			Thread.Sleep(2000);
 		}
 
 		public void LF()
 		{
+			SegmentEnd();
 			Print(138);
 		}
 

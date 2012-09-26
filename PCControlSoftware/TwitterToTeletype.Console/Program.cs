@@ -24,7 +24,7 @@ namespace TTT.Console
 			Logger.Instance.Write("Printing welcome message");
 			teletype.SwitchOn();
 			teletype.CRLF();
-			teletype.Print("Swindon Hackspace - Twitter to Teletype project - 2012");
+			teletype.Print("Swindon Hackspace - Twitter to Teletype Project - September 2012");
 			teletype.CRLF();
 			teletype.SwitchOff();
 
