@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using TTT.Twitter;
 using TTT.Teletype;
+using TTT.Twitter;
 using TTT.Utility;
+using TTT.Console.Properties;
 
 namespace TTT.Console
 {
@@ -24,7 +22,7 @@ namespace TTT.Console
 			Logger.Instance.Write("Printing welcome message");
 			teletype.SwitchOn();
 			teletype.CRLF();
-			teletype.Print("Swindon Hackspace - Twitter to Teletype Project - September 2012");
+			teletype.Print(Settings.Default.WelcomeMessage);
 			teletype.CRLF();
 			teletype.SwitchOff();
 
@@ -33,7 +31,7 @@ namespace TTT.Console
 			Logger.Instance.Write("Starting Twitter polling");
 			tweeter = new Tweeter();
 			tweeter.NewTweet += new EventHandler<NewTweetEventArgs>(tweeter_NewTweet);
-			tweeter.StartSearch("hakmoc");
+			tweeter.StartSearch(Settings.Default.TwitterSearchTerm);
 
 			Logger.Instance.Write("Startup complete.  Waiting for tweets");
 			Logger.Instance.Write("Press any key to exit");
