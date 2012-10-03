@@ -33,7 +33,7 @@ namespace TTT.Console
 			Logger.Instance.Write("Starting Twitter polling");
 			tweeter = new Tweeter();
 			tweeter.NewTweet += new EventHandler<NewTweetEventArgs>(tweeter_NewTweet);
-			tweeter.StartSearch("hakmoc");
+			tweeter.StartSearch(Properties.Settings.Default.TwitterSearchTerm);
 
 			Logger.Instance.Write("Startup complete.  Waiting for tweets");
 			Logger.Instance.Write("Press any key to exit");
