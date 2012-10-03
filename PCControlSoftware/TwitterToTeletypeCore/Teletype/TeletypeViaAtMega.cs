@@ -20,7 +20,7 @@ namespace TTT.Teletype
 	public class TeletypeViaAtmega : ITeletype
 	{
 		const int SwitchDelay = 1000; // Time to wait after switching power on or off to allow TT to warm up/down
-		const int SingleCharPrintDelay = 105; // Delay for a single character to print (10cps Teletype) plus a bit for good luck
+		const int SingleCharPrintDelay = 120; // Delay for a single character to print (10cps Teletype) plus a bit for good luck
 		const int CommandDelay = 500; // Time to wait to allow the Teletype to process a command
 
 		ITeletypeConnectPort port;
@@ -115,7 +115,7 @@ namespace TTT.Teletype
 			}
 			SegmentEnd();
 			Thread.Sleep(counter * SingleCharPrintDelay);
-			Thread.Sleep(CommandDelay);
+			//Thread.Sleep(CommandDelay);
 		}
 
 		private void SegmentEnd()
