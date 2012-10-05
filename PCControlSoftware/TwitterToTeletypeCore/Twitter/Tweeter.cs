@@ -78,6 +78,8 @@ namespace TTT.Twitter
 
 				var nodes = dom.DocumentElement.SelectNodes("atom:entry", nsmgr);
 
+				Logger.Instance.Write("{0} tweets to print out", nodes.Count);
+
 				foreach (XmlNode node in nodes)
 				{
 					Tweet tweet = Tweet.FromNode(node, nsmgr);

@@ -48,7 +48,7 @@ namespace TTT.Console
 		{
 			try
 			{
-				Logger.Instance.Write("{0} Sending tweet to teletype : {1}", Environment.NewLine, e.Tweet.Text);
+				Logger.Instance.Write("Sending tweet to teletype : {0}", e.Tweet.Text);
 				printer.PrintTweet(e.Tweet);
 			}
 			catch (Exception ex)
