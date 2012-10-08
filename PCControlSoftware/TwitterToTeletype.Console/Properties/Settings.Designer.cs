@@ -25,19 +25,19 @@ namespace TTT.Console.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("@snhack")]
-        public string TwitterSearchTerm {
+        [global::System.Configuration.DefaultSettingValueAttribute("Swindon Hackspace - Twitter to Teletype Project - September 2012")]
+        public string WelcomeMessage {
             get {
-                return ((string)(this["TwitterSearchTerm"]));
+                return ((string)(this["WelcomeMessage"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Swindon Hackspace - Twitter to Teletype Project - September 2012")]
-        public string WelcomeMessage {
+        [global::System.Configuration.DefaultSettingValueAttribute("snhack")]
+        public string TwitterUserToRetweeet {
             get {
-                return ((string)(this["WelcomeMessage"]));
+                return ((string)(this["TwitterUserToRetweeet"]));
             }
         }
     }

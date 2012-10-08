@@ -17,7 +17,11 @@ namespace TTT.Twitter
 	/// </summary>
 	public class Tweeter
 	{
-		const string SEARCH_URL = "http://search.twitter.com/search.atom?q={0}&{1}";
+		// {0} = Twitter User Id
+		// {1} = Additional querystring items
+		// const string SEARCH_URL = "http://search.twitter.com/search.atom?q={0}&{1}";
+		const string SEARCH_URL = "http://api.twitter.com/1/statuses/retweeted_by_user.atom?id={0}&{1}";
+		
 
         public string CurrentSearchTerm { get; private set; }
 
@@ -93,7 +97,7 @@ namespace TTT.Twitter
 			}
 			catch (Exception ex)
 			{
-				Logger.Instance.Write("Tweeter poll failed", ex);
+				Logger.Instance.Write("Tweeter poll failed : {0}", ex);
 			}
 			finally
 			{
