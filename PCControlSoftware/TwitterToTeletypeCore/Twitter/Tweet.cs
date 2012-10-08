@@ -15,7 +15,6 @@ namespace TTT.Twitter
 		public string Html { get; set; }
 		public string ImageUri { get; set; }
 		public string Author { get; set; }
-		public string AuthorUri { get; set; }
 
 		public static Tweet FromNode(XmlNode node, XmlNamespaceManager nsmgr)
 		{
@@ -28,7 +27,6 @@ namespace TTT.Twitter
 			t.Html = node.SelectSingleNode("atom:content[@type=\"html\"]", nsmgr).InnerText;
 			t.ImageUri = node.SelectSingleNode("atom:link[@rel=\"image\"]", nsmgr).Attributes["href"].Value;
 			t.Author = node.SelectSingleNode("atom:author", nsmgr).SelectSingleNode("atom:name", nsmgr).InnerText;
-			t.AuthorUri = node.SelectSingleNode("atom:author", nsmgr).SelectSingleNode("atom:uri", nsmgr).InnerText;
 
 			return t;
 		}
