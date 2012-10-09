@@ -8,5 +8,8 @@
     <Setting Name="TwitterPollingIntervalMs" Type="System.Double" Scope="Application">
       <Value Profile="(Default)">10000</Value>
     </Setting>
+    <Setting Name="TwitterMode" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Retweet</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

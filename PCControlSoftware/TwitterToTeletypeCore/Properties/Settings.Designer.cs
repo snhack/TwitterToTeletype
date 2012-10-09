@@ -40,5 +40,14 @@ namespace TTT.Properties {
                 return ((double)(this["TwitterPollingIntervalMs"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Retweet")]
+        public string TwitterMode {
+            get {
+                return ((string)(this["TwitterMode"]));
+            }
+        }
     }
 }

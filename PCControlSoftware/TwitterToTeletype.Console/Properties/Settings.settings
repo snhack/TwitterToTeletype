@@ -5,7 +5,7 @@
     <Setting Name="WelcomeMessage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Swindon Hackspace - Twitter to Teletype Project - September 2012</Value>
     </Setting>
-    <Setting Name="TwitterUserToRetweeet" Type="System.String" Scope="Application">
+    <Setting Name="TwitterSearchTerm" Type="System.String" Scope="Application">
       <Value Profile="(Default)">snhack</Value>
     </Setting>
   </Settings>

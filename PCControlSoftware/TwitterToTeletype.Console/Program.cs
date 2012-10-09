@@ -14,34 +14,42 @@ namespace TTT.Console
 
 		static void Main(string[] args)
 		{
-			Logger.Instance.Write("Starting...");
+			try
+			{
+				Logger.Instance.Write("Starting...");
 
-			teletype = new TeletypeViaAtmega();
-			teletype.Connect(new SerialTeletypeConnectPort());
+				teletype = new TeletypeViaAtmega();
+				teletype.Connect(new SerialTeletypeConnectPort());
 
-			Logger.Instance.Write("Printing welcome message");
-			teletype.SwitchOn();
-			teletype.CRLF();
-			teletype.Print(Settings.Default.WelcomeMessage);
-			teletype.CRLF();
-			teletype.SwitchOff();
+				Logger.Instance.Write("Printing welcome message");
+				teletype.SwitchOn();
+				teletype.CRLF();
+				teletype.Print(Settings.Default.WelcomeMessage);
+				teletype.CRLF();
+				teletype.SwitchOff();
 
-			printer = new TweetPrinter(teletype);
+				printer = new TweetPrinter(teletype);
 
-			Logger.Instance.Write("Starting Twitter polling");
-			tweeter = new Tweeter();
-			tweeter.NewTweet += new EventHandler<NewTweetEventArgs>(tweeter_NewTweet);
-			tweeter.StartSearch(Settings.Default.TwitterUserToRetweeet);
+				Logger.Instance.Write("Starting Twitter polling");
+				tweeter = new Tweeter();
+				tweeter.NewTweet += new EventHandler<NewTweetEventArgs>(tweeter_NewTweet);
+				tweeter.StartSearch(Settings.Default.TwitterSearchTerm);
 
-			Logger.Instance.Write("Startup complete.  Waiting for tweets");
-			Logger.Instance.Write("Press any key to exit");
+				Logger.Instance.Write("Startup complete.  Waiting for tweets");
+				Logger.Instance.Write("Press any key to exit");
 
-			System.Console.ReadLine();
+				System.Console.ReadLine();
 
-			Logger.Instance.Write("Exiting...");
+				Logger.Instance.Write("Exiting...");
 
-			teletype.SwitchOff();
-			teletype.Disconnect();
+				teletype.SwitchOff();
+				teletype.Disconnect();
+			}
+			catch (Exception ex)
+			{
+				Logger.Instance.Error("General Failure", ex);
+				System.Console.ReadLine();
+			}
 		}
 
 		static void tweeter_NewTweet(object sender, NewTweetEventArgs e)

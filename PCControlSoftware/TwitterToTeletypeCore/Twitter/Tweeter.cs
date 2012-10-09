@@ -17,11 +17,25 @@ namespace TTT.Twitter
 	/// </summary>
 	public class Tweeter
 	{
-		// {0} = Twitter User Id
-		// {1} = Additional querystring items
-		// const string SEARCH_URL = "http://search.twitter.com/search.atom?q={0}&{1}";
-		const string SEARCH_URL = "http://api.twitter.com/1/statuses/retweeted_by_user.atom?id={0}&{1}";
-		
+		interface IQueryUris
+		{
+			// {0} = Twitter User Id
+			// {1} = Additional querystring items
+			string InitialQuery { get; }
+			string SubsequentQuery { get; }
+		}
+
+		class SearchUris : IQueryUris
+		{
+			public string InitialQuery { get { return "http://search.twitter.com/search.atom?q={0}&rpp=1"; } }
+			public string SubsequentQuery { get { return "http://search.twitter.com/search.atom?q={0}&since_id={1}"; } }
+		}
+
+		class RetweetUris : IQueryUris
+		{
+			public string InitialQuery { get { return "http://api.twitter.com/1/statuses/retweeted_by_user.atom?id={0}&count=1"; } }
+			public string SubsequentQuery { get { return "http://api.twitter.com/1/statuses/retweeted_by_user.atom?id={0}&since_id={1}"; } }
+		}
 
         public string CurrentSearchTerm { get; private set; }
 
@@ -33,10 +47,28 @@ namespace TTT.Twitter
 
 		private string LastId = string.Empty;
 
+		private IQueryUris QueryUris { get; set; }
+
 		public Tweeter()
 		{
 			// Defaults
 			PollingIntervalMs = Settings.Default.TwitterPollingIntervalMs;
+
+			switch (Settings.Default.TwitterMode)
+			{
+				case "Search":
+					Logger.Instance.Write("Setting up Tweeter in Search mode");
+					QueryUris = new SearchUris();
+					break;
+
+				case "Retweet":
+					Logger.Instance.Write("Setting up Tweeter in Retweet mode");
+					QueryUris = new RetweetUris();
+					break;
+
+				default:
+					throw new ArgumentOutOfRangeException("TwitterMode", "Should be one of Search, Retweet");
+			}
 		}
 
         public void StartSearch(string searchTerm)
@@ -61,16 +93,14 @@ namespace TTT.Twitter
         {
 			try
 			{
-				string filter;
+				string url;
 
 				Logger.Instance.Write("Tweeter polling for {0}", CurrentSearchTerm);
 
 				if (string.IsNullOrEmpty(LastId))
-					filter = "rpp=1"; // First time just get the latest tweet
+					url = string.Format(QueryUris.InitialQuery, HttpUtility.UrlEncode(CurrentSearchTerm));
 				else
-					filter = "since_id=" + LastId; // Else use the Id of the last tweet received
-
-				string url = string.Format(SEARCH_URL, HttpUtility.UrlEncode(CurrentSearchTerm), filter);
+					url = string.Format(QueryUris.SubsequentQuery, HttpUtility.UrlEncode(CurrentSearchTerm), LastId);
 
 				Logger.Instance.Write("Fetching {0}", url);
 
@@ -88,7 +118,7 @@ namespace TTT.Twitter
 				{
 					Tweet tweet = Tweet.FromNode(node, nsmgr);
 
-					LastId = tweet.Id2005;
+					LastId = tweet.NumericId;
 
 					Logger.Instance.Write("Received Tweet : {0}", tweet.Text);
 

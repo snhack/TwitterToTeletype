@@ -9,7 +9,7 @@ namespace TTT.Twitter
 	public class Tweet
 	{
 		public string Id { get; set; }
-		public string Id2005 { get; set; }
+		public string NumericId { get; set; }
 		public DateTime Published { get; set; }
 		public string Text { get; set; }
 		public string Html { get; set; }
@@ -21,7 +21,7 @@ namespace TTT.Twitter
 			Tweet t = new Tweet();
 
 			t.Id = node.SelectSingleNode("atom:id", nsmgr).InnerText;
-			t.Id2005 = GetId2005(t.Id);
+			t.NumericId = GetNumericId(t.Id);
 			t.Published = DateTime.Parse(node.SelectSingleNode("atom:published", nsmgr).InnerText);
 			t.Text = node.SelectSingleNode("atom:title", nsmgr).InnerText;
 			t.Html = node.SelectSingleNode("atom:content[@type=\"html\"]", nsmgr).InnerText;
@@ -33,18 +33,30 @@ namespace TTT.Twitter
 
 		/// <summary>
 		/// Twitter Id's appear to come back as "tag:search.twitter.com,2005:235812528511406080" 
-		/// The since_id paramter of the search api requires the int after 2005: so we split it out here
+		/// or as "tag:twitter.com,2007:http://twitter.com/snhack/statuses/248786105875447808"
+		/// The since_id paramter of the search api requires the int at the end so we split it out here
 		/// </summary>
-		private static string GetId2005(string fullId)
+		private static string GetNumericId(string fullId)
 		{
-			var t5 = fullId.Split(',').FirstOrDefault(i => i.StartsWith("2005:"));
+			var spl = fullId.Split(',');
+			var t5 = spl.FirstOrDefault(i => i.StartsWith("2005:"));
 			if (null != t5)
 			{
 				return t5.Split(':')[1];
 			}
 			else
 			{
-				return string.Empty;
+				var t7 = spl.FirstOrDefault(i => i.StartsWith("2007:"));
+				if (null != t7)
+				{
+					var tweetUrl = t7.Split(':')[2];
+					var items = tweetUrl.Split('/');
+					return items[items.Length - 1];
+				}
+				else
+				{
+					return string.Empty;
+				}
 			}
 		}
 	}

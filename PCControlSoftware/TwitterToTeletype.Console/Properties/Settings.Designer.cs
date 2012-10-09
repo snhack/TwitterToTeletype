@@ -35,9 +35,9 @@ namespace TTT.Console.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("snhack")]
-        public string TwitterUserToRetweeet {
+        public string TwitterSearchTerm {
             get {
-                return ((string)(this["TwitterUserToRetweeet"]));
+                return ((string)(this["TwitterSearchTerm"]));
             }
         }
     }
