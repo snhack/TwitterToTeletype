@@ -34,7 +34,7 @@ namespace TTT.Teletype
 
 			PrintTweetText(t.Text);	
 			teletype.CRLF();
-			teletype.Print(string.Format("Tweeted by : {0} at {1}", t.Author, t.Published.ToString("dd MMM yyyy HH:mm:ss")));
+			teletype.Print(string.Format("Tweeted by : {0}", t.Author));
 			teletype.CRLF();
 			teletype.CRLF();
 
