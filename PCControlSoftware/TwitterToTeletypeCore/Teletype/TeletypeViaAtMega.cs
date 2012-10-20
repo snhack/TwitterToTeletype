@@ -31,8 +31,15 @@ namespace TTT.Teletype
 
 			this.port = port;
 			port.Init(Settings.Default.ComPort, 9600, Parity.None, 8, StopBits.One, Handshake.None);
-			port.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
-			port.Open();
+
+			// Allow simulation of writes to TeletypeViaAtmega device
+			if (SimulateWrite)
+				Logger.Instance.Write ("TeletypeViaAtmega opened: {0}, continuing in SimulateWrite mode", port.IsOpen);
+			else {
+				port.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
+				port.Open();
+			}
+
 		}
 
 		public void Disconnect()
@@ -84,6 +91,12 @@ namespace TTT.Teletype
 
 		public void Print(string message)
 		{
+			if (SimulateWrite) {
+				// Simulating TeletypeViaAtmega, so print to console
+				Logger.Instance.Write ("<< {0} >>", message);
+				return;
+			}
+
 			var bytes = EncodeBytes(message);
 
 			Print(bytes);
@@ -96,13 +109,20 @@ namespace TTT.Teletype
 
 		private void Print(byte[] bytes)
 		{
-			if (!Connected)
+			if (!Connected && !SimulateWrite)
 				throw new ApplicationException("Not connected to Teletype");
 
 			int counter = 0;
 
 			for (int i = 0; i < bytes.Length; i++)
 			{
+				// Print bytes to console when enabled
+				if (SimulateShowsBytes)
+						Logger.Instance.Write ("<< Print bytes: {0} >>", bytes[i]);
+
+				// Skip writing to device when simulating
+				if (SimulateWrite) continue;
+
 				port.Write(new byte[] { bytes[i] }, 0, 1);
 
 				// AtMega buffer is only 50 bytes, we need to send \n to flush buffer to teletype
@@ -118,9 +138,18 @@ namespace TTT.Teletype
 			//Thread.Sleep(CommandDelay);
 		}
 
+		// Allows directing output to console when no device connected
+		// FIXME: Do something more useful with this placeholder
+		public bool SimulateWrite 		{ get { return !Connected || false; } }
+
+		// Show control characters etc. when simulating
+		// FIXME: Do something more useful with this placeholder
+		public bool SimulateShowsBytes 	{ get { return SimulateWrite && false; } }
+
 		private void SegmentEnd()
 		{
-			port.Write(System.Text.Encoding.UTF8.GetBytes("\n"), 0, 1);
+			if (!SimulateWrite)
+				port.Write(System.Text.Encoding.UTF8.GetBytes("\n"), 0, 1);
 			Thread.Sleep(CommandDelay);
 		}
 

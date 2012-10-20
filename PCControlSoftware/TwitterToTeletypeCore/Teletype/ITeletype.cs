@@ -15,6 +15,9 @@ namespace TTT.Teletype
 		void Disconnect();
 		bool Connected { get; }
 	
+		bool SimulateWrite { get; }
+		bool SimulateShowsBytes { get; }
+
 		void Backspace();
 		void Bell();
 		void CR();
