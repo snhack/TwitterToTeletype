@@ -36,9 +36,12 @@ namespace TTT.Console
 				tweeter.StartSearch(Settings.Default.TwitterSearchTerm);
 
 				Logger.Instance.Write("Startup complete.  Waiting for tweets");
-				Logger.Instance.Write("Press any key to exit");
 
-				System.Console.ReadLine();
+				do
+				{
+					Logger.Instance.Write("\n>> Press 'q' to exit");
+				}
+				while (System.Console.ReadKey(true).KeyChar != 'q');
 
 				Logger.Instance.Write("Exiting...");
 
