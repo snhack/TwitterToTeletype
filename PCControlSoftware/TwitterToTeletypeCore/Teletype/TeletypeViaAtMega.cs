@@ -93,7 +93,7 @@ namespace TTT.Teletype
 		{
 			if (SimulateWrite) {
 				// Simulating TeletypeViaAtmega, so print to console
-				Logger.Instance.Write ("<< {0} >>", message);
+				Logger.Instance.Write (" || {0} ||", message.PadRight(TweetPrinter.CONSOLE_WIDTH));
 				return;
 			}
 
@@ -118,7 +118,7 @@ namespace TTT.Teletype
 			{
 				// Print bytes to console when enabled
 				if (SimulateShowsBytes)
-						Logger.Instance.Write ("<< Print bytes: {0} >>", bytes[i]);
+						Logger.Instance.Write (" || {0} < {1,3} > ||", "".PadRight(TweetPrinter.CONSOLE_WIDTH -8), bytes[i]);
 
 				// Skip writing to device when simulating
 				if (SimulateWrite) continue;

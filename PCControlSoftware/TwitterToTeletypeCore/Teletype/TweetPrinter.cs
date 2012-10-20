@@ -14,7 +14,7 @@ namespace TTT.Teletype
 	/// </summary>
 	public class TweetPrinter
 	{
-		const int CONSOLE_WIDTH = 70;
+		public const int CONSOLE_WIDTH = 70;
 
 		private ITeletype teletype;
 
