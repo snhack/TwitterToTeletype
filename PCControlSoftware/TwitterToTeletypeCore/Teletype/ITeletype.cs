@@ -16,7 +16,10 @@ namespace TTT.Teletype
 		bool Connected { get; }
 	
 		bool SimulateWrite { get; }
+		bool SimulateDelay { get; }
 		bool SimulateShowsBytes { get; }
+
+		void WaitForTT(int wait);
 
 		void Backspace();
 		void Bell();

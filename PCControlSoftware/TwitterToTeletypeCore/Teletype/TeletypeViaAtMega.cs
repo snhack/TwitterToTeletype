@@ -62,14 +62,14 @@ namespace TTT.Teletype
 		{
 			SegmentEnd();
 			Print(System.Text.Encoding.UTF8.GetBytes("<<\n"));
-			Thread.Sleep(SwitchDelay);
+			WaitForTT(SwitchDelay);
 		}
 
 		public void SwitchOff()
 		{
 			SegmentEnd();
 			Print(System.Text.Encoding.UTF8.GetBytes(">>\n"));
-			Thread.Sleep(SwitchDelay);
+			WaitForTT(SwitchDelay);
 		}
 
 		void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -129,28 +129,38 @@ namespace TTT.Teletype
 				if (++counter == 50)
 				{
 					SegmentEnd();
-					Thread.Sleep(counter * SingleCharPrintDelay);
+					WaitForTT(counter * SingleCharPrintDelay);
 					counter = 0;
 				}
 			}
 			SegmentEnd();
-			Thread.Sleep(counter * SingleCharPrintDelay);
-			//Thread.Sleep(CommandDelay);
+			WaitForTT(counter * SingleCharPrintDelay);
+			//WaitForTT(CommandDelay);
 		}
 
 		// Allows directing output to console when no device connected
 		// FIXME: Do something more useful with this placeholder
 		public bool SimulateWrite 		{ get { return !Connected || false; } }
 
+		// (Dis)allows teletype delay when no device connected
+		// FIXME: Do something more useful with this placeholder
+		public bool SimulateDelay 		{ get { return SimulateWrite && false; } }
+
 		// Show control characters etc. when simulating
 		// FIXME: Do something more useful with this placeholder
 		public bool SimulateShowsBytes 	{ get { return SimulateWrite && false; } }
+
+		public void WaitForTT (int wait)
+		{
+			// Only sleep if writing to TT, or when simulating delay
+			if (!SimulateWrite || SimulateDelay) Thread.Sleep(wait);
+		}
 
 		private void SegmentEnd()
 		{
 			if (!SimulateWrite)
 				port.Write(System.Text.Encoding.UTF8.GetBytes("\n"), 0, 1);
-			Thread.Sleep(CommandDelay);
+			WaitForTT(CommandDelay);
 		}
 
 		#endregion
@@ -179,7 +189,7 @@ namespace TTT.Teletype
 		{
 			SegmentEnd();
 			Print(141);
-			Thread.Sleep(2000);
+			WaitForTT(2000);
 		}
 
 		public void LF()
