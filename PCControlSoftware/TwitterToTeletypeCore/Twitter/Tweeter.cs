@@ -95,7 +95,7 @@ namespace TTT.Twitter
 			{
 				string url;
 
-				Logger.Instance.Write("Tweeter polling for {0}", CurrentSearchTerm);
+				Logger.Instance.Write("\nTweeter polling for {0}", CurrentSearchTerm);
 
 				if (string.IsNullOrEmpty(LastId))
 					url = string.Format(QueryUris.InitialQuery, HttpUtility.UrlEncode(CurrentSearchTerm));
@@ -120,7 +120,7 @@ namespace TTT.Twitter
 
 					LastId = tweet.NumericId;
 
-					Logger.Instance.Write("Received Tweet : {0}", tweet.Text);
+					Logger.Instance.Write("\nReceived Tweet : {0}", tweet.Text);
 
 					OnNewTweet(tweet);
 				}
