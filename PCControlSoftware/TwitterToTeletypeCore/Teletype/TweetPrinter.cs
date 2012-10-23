@@ -14,7 +14,7 @@ namespace TTT.Teletype
 	/// </summary>
 	public class TweetPrinter
 	{
-		const int CONSOLE_WIDTH = 70;
+		public const int CONSOLE_WIDTH = 70;
 
 		private ITeletype teletype;
 
@@ -27,7 +27,7 @@ namespace TTT.Teletype
 		{
 			teletype.SwitchOn();
 
-			Thread.Sleep(2000);
+			teletype.WaitForTT(2000);
 
 			teletype.Bell();
 			teletype.Bell();
@@ -38,11 +38,11 @@ namespace TTT.Teletype
 			teletype.CRLF();
 			teletype.CRLF();
 
-			Thread.Sleep(2000);
+			teletype.WaitForTT(2000);
 
 			teletype.SwitchOff();
 
-			Thread.Sleep(2000);
+			teletype.WaitForTT(2000);
 		}
 
 		private void PrintTweetText(string message)

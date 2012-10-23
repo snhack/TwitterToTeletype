@@ -30,17 +30,20 @@ namespace TTT.Console
 
 				printer = new TweetPrinter(teletype);
 
-				Logger.Instance.Write("Starting Twitter polling");
+				Logger.Instance.Write("\nStarting Twitter polling");
 				tweeter = new Tweeter();
 				tweeter.NewTweet += new EventHandler<NewTweetEventArgs>(tweeter_NewTweet);
 				tweeter.StartSearch(Settings.Default.TwitterSearchTerm);
 
-				Logger.Instance.Write("Startup complete.  Waiting for tweets");
-				Logger.Instance.Write("Press any key to exit");
+				Logger.Instance.Write("\nStartup complete.  Waiting for tweets");
 
-				System.Console.ReadLine();
+				do
+				{
+					Logger.Instance.Write("\n>> Press 'q' to exit");
+				}
+				while (System.Console.ReadKey(true).KeyChar != 'q');
 
-				Logger.Instance.Write("Exiting...");
+				Logger.Instance.Write("\nExiting...");
 
 				teletype.SwitchOff();
 				teletype.Disconnect();
