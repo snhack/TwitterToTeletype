@@ -37,11 +37,29 @@ namespace TTT.Console
 
 				Logger.Instance.Write(Environment.NewLine + "Startup complete.  Waiting for tweets");
 
+				bool quit = false;
 				do
 				{
-					Logger.Instance.Write(Environment.NewLine + ">> Press 'q' to exit");
+					Logger.Instance.Write(Environment.NewLine + ">> Press 'e' to turn on, 'd' to turn off, 'q' to exit");
+
+					var key = System.Console.ReadKey(true);
+
+					switch (key.KeyChar)
+					{
+						case 'q':
+							quit = true;
+							break;
+
+						case 'e':
+							teletype.SwitchOn();
+							break;
+
+						case 'd':
+							teletype.SwitchOff();
+							break;
+					}
 				}
-				while (System.Console.ReadKey(true).KeyChar != 'q');
+				while (!quit);
 
 				Logger.Instance.Write(Environment.NewLine + "Exiting...");
 
