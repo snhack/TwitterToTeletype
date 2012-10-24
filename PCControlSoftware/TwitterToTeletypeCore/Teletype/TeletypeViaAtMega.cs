@@ -34,8 +34,9 @@ namespace TTT.Teletype
 
 			// Allow simulation of writes to TeletypeViaAtmega device
 			if (SimulateWrite)
-				Logger.Instance.Write ("TeletypeViaAtmega opened: {0}, continuing in SimulateWrite mode", port.IsOpen);
-			else {
+				Logger.Instance.Write("TeletypeViaAtmega opened: {0}, continuing in SimulateWrite mode", port.IsOpen);
+			else
+			{
 				port.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
 				port.Open();
 			}
@@ -91,7 +92,8 @@ namespace TTT.Teletype
 
 		public void Print(string message)
 		{
-			if (SimulateWrite) {
+			if (SimulateWrite)
+			{
 				// Simulating TeletypeViaAtmega, so print to console
 				Logger.Instance.Write (" || {0} ||", message.PadRight(TweetPrinter.CONSOLE_WIDTH));
 				return;
@@ -140,15 +142,15 @@ namespace TTT.Teletype
 
 		// Allows directing output to console when no device connected
 		// FIXME: Do something more useful with this placeholder
-		public bool SimulateWrite 		{ get { return !Connected || false; } }
+		public bool SimulateWrite { get { return !Connected || false; } }
 
 		// (Dis)allows teletype delay when no device connected
 		// FIXME: Do something more useful with this placeholder
-		public bool SimulateDelay 		{ get { return SimulateWrite && false; } }
+		public bool SimulateDelay { get { return SimulateWrite && false; } }
 
 		// Show control characters etc. when simulating
 		// FIXME: Do something more useful with this placeholder
-		public bool SimulateShowsBytes 	{ get { return SimulateWrite && false; } }
+		public bool SimulateShowsBytes { get { return SimulateWrite && false; } }
 
 		public void WaitForTT (int wait)
 		{
