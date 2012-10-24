@@ -31,6 +31,14 @@ namespace TTT.Teletype
 
 			this.port = port;
 			port.Init(Settings.Default.ComPort, 9600, Parity.None, 8, StopBits.One, Handshake.None);
+			try
+			{
+				port.Open();
+			}
+			catch(Exception ex) 
+			{
+				Logger.Instance.Error("Failed to open com port", ex);
+			}
 
 			// Allow simulation of writes to TeletypeViaAtmega device
 			if (SimulateWrite)
@@ -38,9 +46,7 @@ namespace TTT.Teletype
 			else
 			{
 				port.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
-				port.Open();
 			}
-
 		}
 
 		public void Disconnect()
