@@ -35,18 +35,19 @@ namespace TTT.Teletype
 			{
 				port.Open();
 			}
+			catch(System.IO.IOException)
+			{
+				if (!SimulateWrite) throw;
+				// Log use of SimulateWrite mode
+				Logger.Instance.Write("Port could not be opened, continuing in SimulateWrite mode");
+			}
 			catch(Exception ex) 
 			{
 				Logger.Instance.Error("Failed to open com port", ex);
 			}
 
-			// Allow simulation of writes to TeletypeViaAtmega device
-			if (SimulateWrite)
-				Logger.Instance.Write("TeletypeViaAtmega opened: {0}, continuing in SimulateWrite mode", port.IsOpen);
-			else
-			{
+			if (!SimulateWrite)
 				port.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
-			}
 		}
 
 		public void Disconnect()
