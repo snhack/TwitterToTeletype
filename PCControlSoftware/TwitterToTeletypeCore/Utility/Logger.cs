@@ -33,7 +33,7 @@ namespace TTT.Utility
 		public void Error(string message, Exception ex)
 		{
 			//System.Diagnostics.Debug.WriteLine(string.Format("Error {0}, {1}", message,ex.ToString()));
-			Console.WriteLine(string.Format("Error {0}, {1}", message, ex.ToString()));
+			Console.Error.WriteLine(string.Format("Error {0}, {1}", message, ex.ToString()));
 		}
 	}
 }
