@@ -15,6 +15,7 @@ namespace TTT.Twitter
 		public string Html { get; set; }
 		public string ImageUri { get; set; }
 		public string Author { get; set; }
+		public bool IsRetweet { get; set; }
 
 		public static Tweet FromNode(XmlNode node, XmlNamespaceManager nsmgr)
 		{
@@ -59,5 +60,7 @@ namespace TTT.Twitter
 				}
 			}
 		}
+
+		public string OriginalAuthor { get; set; }
 	}
 }
