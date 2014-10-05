@@ -15,22 +15,8 @@ namespace TTT.Twitter
 		public string Html { get; set; }
 		public string ImageUri { get; set; }
 		public string Author { get; set; }
+		public string ScreenName { get; set; }
 		public bool IsRetweet { get; set; }
-
-		public static Tweet FromNode(XmlNode node, XmlNamespaceManager nsmgr)
-		{
-			Tweet t = new Tweet();
-
-			t.Id = node.SelectSingleNode("atom:id", nsmgr).InnerText;
-			t.NumericId = GetNumericId(t.Id);
-			t.Published = DateTime.Parse(node.SelectSingleNode("atom:published", nsmgr).InnerText);
-			t.Text = node.SelectSingleNode("atom:title", nsmgr).InnerText;
-			t.Html = node.SelectSingleNode("atom:content[@type=\"html\"]", nsmgr).InnerText;
-			t.ImageUri = node.SelectSingleNode("atom:link[@rel=\"image\"]", nsmgr).Attributes["href"].Value;
-			t.Author = node.SelectSingleNode("atom:author", nsmgr).SelectSingleNode("atom:name", nsmgr).InnerText;
-
-			return t;
-		}
 
 		/// <summary>
 		/// Twitter Id's appear to come back as "tag:search.twitter.com,2005:235812528511406080" 

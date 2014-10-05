@@ -158,7 +158,8 @@ namespace TTT.Twitter
 				{
 					var tweet = new Tweet
 					{
-						Author = jt.user.name, //tweet.user.screen_name
+						Author = jt.user.name,
+						ScreenName = jt.user.screen_name,
 						Id = jt.id.ToString(),
 						ImageUri = "",
 						IsRetweet = jt.retweeted_status(),

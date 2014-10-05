@@ -34,7 +34,7 @@ namespace TTT.Teletype
 
 			PrintTweetText(t.Text);	
 			teletype.CRLF();
-			teletype.Print(string.Format("Tweeted by : {0}", t.Author));
+			teletype.Print(string.Format("Tweeted by : {0} (@{1})", t.Author, t.ScreenName));
 			teletype.CRLF();
 			teletype.CRLF();
 
