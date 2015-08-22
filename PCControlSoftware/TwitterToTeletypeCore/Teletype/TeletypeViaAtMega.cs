@@ -25,6 +25,11 @@ namespace TTT.Teletype
 
 		ITeletypeConnectPort port;
 
+        public void Init()
+        {
+
+        }
+
 		public void Connect(ITeletypeConnectPort port)
 		{
 			Logger.Instance.Write("TeletypeViaAtmega connecting");
@@ -102,7 +107,7 @@ namespace TTT.Teletype
 			if (SimulateWrite)
 			{
 				// Simulating TeletypeViaAtmega, so print to console
-				Logger.Instance.Write (" || {0} ||", message.PadRight(TweetPrinter.CONSOLE_WIDTH));
+				Logger.Instance.Write (" || {0}", message);
 				return;
 			}
 
@@ -127,7 +132,7 @@ namespace TTT.Teletype
 			{
 				// Print bytes to console when enabled
 				if (SimulateShowsBytes)
-						Logger.Instance.Write (" || {0} < {1,3} > ||", "".PadRight(TweetPrinter.CONSOLE_WIDTH -8), bytes[i]);
+						Logger.Instance.Write (" || < {1,3} >", bytes[i]);
 
 				// Skip writing to device when simulating
 				if (SimulateWrite) continue;

@@ -18,17 +18,21 @@ namespace TTT.Console
 			{
 				Logger.Instance.Write("Starting...");
 
-				teletype = new TeletypeViaAtmega();
+				//teletype = new TeletypeViaAtmega();
+                teletype = new LogobotViaSerial();
 				teletype.Connect(new SerialTeletypeConnectPort());
+                teletype.Init();
 
+                /*
 				Logger.Instance.Write("Printing welcome message");
 				teletype.SwitchOn();
 				teletype.CRLF();
 				teletype.Print(Settings.Default.WelcomeMessage);
 				teletype.CRLF();
 				teletype.SwitchOff();
+                */
 
-				printer = new TweetPrinter(teletype);
+                printer = new TweetPrinter(teletype) { IncludeAccreditation = false, ConsoleWidth = 30 };
 
 				Logger.Instance.Write(Environment.NewLine + "Starting Twitter polling");
 				tweeter = new Tweeter();

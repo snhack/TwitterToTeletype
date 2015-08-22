@@ -38,6 +38,11 @@ namespace TTT.Teletype
 			port.Write(buffer, offset, count);
 		}
 
+        public void WriteLine(string line)
+        {
+            port.WriteLine(line);
+        }
+
 		void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
 		{
 			var handler = DataReceived;

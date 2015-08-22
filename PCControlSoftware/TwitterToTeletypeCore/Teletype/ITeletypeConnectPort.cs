@@ -16,6 +16,7 @@ namespace TTT.Teletype
 		bool IsOpen { get; }
 
 		void Write(byte[] buffer, int offset, int count);
+        void WriteLine(string line);
 
 		string ReadExisting();
 	}

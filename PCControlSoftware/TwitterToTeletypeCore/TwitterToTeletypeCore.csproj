@@ -54,6 +54,7 @@
     <Compile Include="Teletype\ITeletype.cs" />
     <Compile Include="Teletype\ITeletypeConnectPort.cs" />
     <Compile Include="Teletype\SerialTeletypeConnectPort.cs" />
+    <Compile Include="Teletype\LogobotViaSerial.cs" />
     <Compile Include="Teletype\TeletypeViaAtMega.cs" />
     <Compile Include="Teletype\TweetPrinter.cs" />
     <Compile Include="Twitter\NewTweetEventArgs.cs" />
@@ -63,7 +64,9 @@
     <Compile Include="Utility\Logger.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -8,6 +8,8 @@ namespace TTT.Teletype
 	/// </summary>
 	public interface ITeletype
 	{
+        void Init();
+
 		void SwitchOn();
 		void SwitchOff();
 

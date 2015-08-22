@@ -14,13 +14,18 @@ namespace TTT.Teletype
 	/// </summary>
 	public class TweetPrinter
 	{
-		public const int CONSOLE_WIDTH = 70;
+        public int ConsoleWidth { get; set; }
+        public bool IncludeAccreditation { get; set; }
 
 		private ITeletype teletype;
 
 		public TweetPrinter(ITeletype teletype)
 		{
 			this.teletype = teletype;
+
+            // defaults
+            IncludeAccreditation = true;
+            ConsoleWidth = 70;
 		}
 
 		public void PrintTweet(Tweet t)
@@ -32,11 +37,15 @@ namespace TTT.Teletype
 			teletype.Bell();
 			teletype.Bell();
 
-			PrintTweetText(t.Text);	
-			teletype.CRLF();
-			teletype.Print(string.Format("Tweeted by : {0} (@{1})", t.Author, t.ScreenName));
-			teletype.CRLF();
-			teletype.CRLF();
+			PrintTweetText(t.Text);
+
+            if (IncludeAccreditation)
+            {
+                teletype.CRLF();
+                teletype.Print(string.Format("Tweeted by : {0} (@{1})", t.Author, t.ScreenName));
+                teletype.CRLF();
+                teletype.CRLF();
+            }
 
 			teletype.WaitForTT(2000);
 
@@ -52,15 +61,15 @@ namespace TTT.Teletype
 			while (formattedMessage.Length > 0)
 			{
 				string line;
-				if (formattedMessage.Length <= CONSOLE_WIDTH)
+				if (formattedMessage.Length <= ConsoleWidth)
 				{
 					line = formattedMessage;
 					formattedMessage = string.Empty;
 				}
 				else
 				{
-					line = formattedMessage.Substring(0, CONSOLE_WIDTH);
-					formattedMessage = formattedMessage.Substring(CONSOLE_WIDTH);
+					line = formattedMessage.Substring(0, ConsoleWidth);
+					formattedMessage = formattedMessage.Substring(ConsoleWidth);
 				}
 				
 				teletype.Print(line);
